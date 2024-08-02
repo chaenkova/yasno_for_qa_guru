@@ -1,9 +1,5 @@
 from selene import browser, be, have, by, command
 import allure
-import pytest
-import os
-
-import tests
 
 
 class CatalogPage:
