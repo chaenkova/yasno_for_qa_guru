@@ -7,8 +7,6 @@ import tests
 
 
 class CatalogPage:
-    def __init__(self):
-        pass
 
     @allure.step('Открыть каталог терапевтов')
     def open(self):
@@ -61,6 +59,7 @@ class CatalogPage:
             be.absent)
 
 #TODO: отрефакторить и добавить датакласс. Проходить в цикле все поля и искать их на странице
+    @allure.step('Заполняем все фильтры в попапе')
     def fill_filters(self):
         browser.element(by.text('Стресс')).click()
         browser.element(by.text('Цена')).click()
@@ -80,6 +79,7 @@ class CatalogPage:
         browser.element(by.text('Показать')).click()
         return self
 
+    @allure.step('Проверяем результат в выбранных фильтрах')
     def check_filters(self):
         browser.element(by.text('Cтресс')).should(be.existing)
         browser.element(by.text('2 850 ₽')).should(be.existing)
