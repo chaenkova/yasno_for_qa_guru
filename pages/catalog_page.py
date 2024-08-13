@@ -1,4 +1,4 @@
-from selene import browser, be, have, by, command
+from selene import browser, be, have, by
 import allure
 
 
@@ -87,4 +87,4 @@ class CatalogPage:
         browser.element(by.text('Без доступного времени')).should(be.existing)
 
 
-
+catalog = CatalogPage()

@@ -1,4 +1,4 @@
-from pages.catalog_page import CatalogPage
+from pages.catalog_page import catalog
 import allure
 from allure_commons.types import Severity
 
@@ -8,7 +8,6 @@ from allure_commons.types import Severity
 @allure.suite('Каталог')
 @allure.title('Открыта страница каталога терапевтов')
 def test_open_catalog_without_filters():
-    catalog = CatalogPage()
     catalog.open().should_have_no_filters()
 
 
@@ -17,7 +16,6 @@ def test_open_catalog_without_filters():
 @allure.suite('Каталог')
 @allure.title('Проверка работы быстрого фильтра симптомов')
 def test_symptoms_filter():
-    catalog = CatalogPage()
     catalog.open().chose_stress().text_should_be_in_filters('Стресс')
 
 
@@ -26,7 +24,6 @@ def test_symptoms_filter():
 @allure.suite('Каталог')
 @allure.title('Проверка работы быстрого фильтра подхода')
 def test_treatment_filter():
-    catalog = CatalogPage()
     catalog.open().chose_kpt().text_should_be_in_filters('КПТ')
 
 
@@ -35,7 +32,6 @@ def test_treatment_filter():
 @allure.suite('Каталог')
 @allure.title('Проверка работы быстрого фильтра по цене')
 def test_price_filter():
-    catalog = CatalogPage()
     catalog.open().chose_price().text_should_be_in_filters('2850 ₽')
 
 
@@ -44,7 +40,6 @@ def test_price_filter():
 @allure.suite('Каталог')
 @allure.title('Проверка работы быстрого фильтра по полу')
 def test_sex_filter():
-    catalog = CatalogPage()
     catalog.open().chose_sex().text_should_be_in_filters('Мужской')
 
 
