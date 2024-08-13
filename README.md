@@ -60,4 +60,19 @@ allure serve allure-results/
 
 <details>
 <summary>Видео с прохождением </summary>
+
+
+  ![](https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/b5f8f9b81dba1fadbaca07d7069533e2.gif)
 </details>
+
+# Используемый стек
+
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/184117132-9e89a93b-65fb-47c3-91e7-7d0f99e7c066.png" width="50"> <img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/68747470733a2f2f616c6c7572657265706f72742e6f72672f7075626c69632f696d672f616c6c7572652d7265706f72742e737667.svg" width="50">
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/68747470733a2f2f63646e2d69636f6e732d706e672e666c617469636f6e2e636f6d2f3531322f323131312f323131313634362e706e67.png" width="50">
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/file-type-python.svg" width="50">
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/jenkins-original.186x256.png" width="50">
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/pytest.svg" width="50">
+<img src="https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/selenium.svg" width="50">
+
+
+
