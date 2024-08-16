@@ -50,3 +50,26 @@ def test_sex_filter():
 def test_all_filter():
     pass
 
+
+def test_max_price_sort():
+    pass
+
+
+def test_preset():
+    pass
+
+
+def test_see_more():
+    pass
+
+
+def test_api_pycholog_rate():
+    pass
+
+
+def test_education_popup():
+    pass
+
+
+def test_couple_therapy():
+    pass
