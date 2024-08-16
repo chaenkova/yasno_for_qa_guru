@@ -8,8 +8,7 @@
 
 
 ## Проверяем быстрые фильтры каталога
-<details>
-<summary>Запуск локально</summary>
+# Запуск локально
 1. Склонировать репозиторий
   
   ```git clone https://github.com/chaenkova/yasno_for_qa_guru/tree/main```
@@ -33,10 +32,7 @@ pytest .
 ```
 allure serve allure-results/
 ```
-</details>
-
-<details>
-<summary>Запуск удаленно через jenkins </summary>
+# Запуск удаленно через jenkins 
 
 1. [Открыть проект](https://jenkins.autotests.cloud/job/C13-LadyOokami-hw_14/)
   
@@ -46,30 +42,21 @@ allure serve allure-results/
 3. Открыть отчет
 ![](https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/Снимок%20экрана%202024-08-02%20в%2012.59.02.png)
 
-</details>
 
 ## Пример отчета
 
-<details>
-<summary>Jenkins </summary>
+# Jenkins 
 
 ![](https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/Снимок%20экрана%202024-08-02%20в%2012.57.56.png)
 
-</details>
-
-<details>
-<summary>Telegram </summary>
+# Telegram
 
 ![](https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/Снимок%20экрана%202024-08-02%20в%2012.58.08.png)
 
-</details>
-
-<details>
-<summary>Видео с прохождением </summary>
+# Видео с прохождением 
 
 
   ![](https://github.com/chaenkova/yasno_for_qa_guru/blob/main/images/b5f8f9b81dba1fadbaca07d7069533e2.gif)
-</details>
 
 # Используемый стек
 
