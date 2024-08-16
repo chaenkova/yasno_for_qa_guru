@@ -44,14 +44,14 @@ class CatalogPage:
     @allure.step('Проверяем результат в выбранных фильтрах')
     def text_should_be_in_filters(self, text):
         (browser.element(
-            'div._relative._z-\[90\] > div._bg-white-100.md\:_px-5._px-4._pt-3._rounded-b-2xl._flex._gap-3._border-t._border-grey-500 > div._flex-1._flex._gap-4._overflow-auto._pb-3.md\:_flex-wrap > div > div > span')
+            '[data-id="therapist-catalog-short-filters"] div._overflow-auto span._whitespace-nowrap')
          .should(have.exact_text(text)))
 
     @allure.step('Проверяем, фильтры по-умолчанию пустые')
     def should_have_no_filters(self):
         browser.element(by.text('Отменить')).click()
         browser.element(
-            'div._relative._z-\[90\] > div._bg-white-100.md\:_px-5._px-4._pt-3._rounded-b-2xl._flex._gap-3._border-t._border-grey-500').should(
+            '[data-id="therapist-catalog-short-filters"] div._overflow-auto span._whitespace-nowrap').should(
             be.absent)
 
 #TODO: отрефакторить и добавить датакласс. Проходить в цикле все поля и искать их на странице
