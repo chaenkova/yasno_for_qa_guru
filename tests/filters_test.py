@@ -48,5 +48,5 @@ def test_sex_filter():
 @allure.suite('Каталог')
 @allure.title('Проверка работы общего фильтра по нескольким параметрам')
 def test_all_filter():
-    pass
+    catalog.open().fill_filters().check_filters()
 

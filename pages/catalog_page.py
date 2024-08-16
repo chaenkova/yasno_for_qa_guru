@@ -57,27 +57,30 @@ class CatalogPage:
 #TODO: отрефакторить и добавить датакласс. Проходить в цикле все поля и искать их на странице
     @allure.step('Заполняем все фильтры в попапе')
     def fill_filters(self):
-        browser.element(by.text('Стресс')).click()
-        browser.element(by.text('Цена')).click()
-        browser.element(by.text('2 850 ₽')).click()
-        browser.element(by.text('Возраст')).click()
-        browser.element(by.text('25-35 лет')).click()
-        browser.element(by.text('Психотерапевтический подход')).click()
-        browser.element(by.text('КПТ')).click()
-        browser.element(by.text('Опыт')).click()
-        browser.element(by.text('Более 5 лет')).click()
-        browser.element(by.text('Пол')).click()
-        browser.element(by.text('Мужской')).click()
-        browser.element(by.text('Время сессии')).click()
-        browser.element(by.text('Ближайшее')).click()
-        browser.element(by.text('Дополнительные настройки')).click()
-        browser.element(by.text('Без доступного времени')).click()
-        browser.element(by.text('Показать')).click()
+
+        popup = browser.element('._s-popup_layer')
+        popup.element(by.text('Стресс')).click()
+        popup.element(by.text('Цена')).click()
+        popup.element(by.text('2 850 ₽')).click()
+        popup.element(by.text('Возраст')).click()
+        popup.element(by.text('25-35 лет')).click()
+        popup.element(by.text('Психотерапевтический подход')).click()
+        popup.element(by.text('КПТ')).click()
+        popup.element(by.text('Опыт')).click()
+        popup.element(by.text('Более 5 лет')).click()
+        popup.element(by.text('Пол')).click()
+        popup.element(by.text('Мужской')).click()
+        popup.element(by.text('Время сессии')).click()
+        popup.element(by.text('Ближайшее')).click()
+        popup.element(by.text('Дополнительные настройки')).click()
+        popup.element(by.text('Без доступного времени')).click()
+        popup.element(by.text('Показать')).click()
         return self
 
     @allure.step('Проверяем результат в выбранных фильтрах')
     def check_filters(self):
-        browser.element(by.text('Cтресс')).should(be.existing)
+
+        browser.element(by.text('Стресс')).should(be.existing)
         browser.element(by.text('2 850 ₽')).should(be.existing)
         browser.element(by.text('25-35 лет')).should(be.existing)
         browser.element(by.text('КПТ')).should(be.existing)
@@ -85,6 +88,7 @@ class CatalogPage:
         browser.element(by.text('Мужской')).should(be.existing)
         browser.element(by.text('Ближайшее время')).should(be.existing)
         browser.element(by.text('Без доступного времени')).should(be.existing)
+        return self
 
 
 catalog = CatalogPage()
