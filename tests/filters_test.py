@@ -51,25 +51,38 @@ def test_all_filter():
     catalog.open().fill_filters().check_filters()
 
 
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('Каталог')
+@allure.title('Сортировка "Сначала дороже"')
 def test_max_price_sort():
-    pass
+    catalog.open().chose_sort_max_price().check_sort_max_price()
 
 
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('Каталог')
+@allure.title('Проверка перехода на страницу пресета')
 def test_preset():
-    pass
+    catalog.open().fill_filters_for_preset().check_preset_title()
 
-
+@allure.tag('web')
+@allure.severity(Severity.MINOR)
+@allure.suite('Каталог')
+@allure.title('Есть возможность открыть больше психологов')
 def test_see_more():
-    pass
+    catalog.open().count_therapists().see_more().check_count()
 
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('Каталог')
+@allure.title('Цена в попапе грейда совпадает со стоимостью сессии')
+def test_price_popup():
+    catalog.open().click_price_icon().check_price_in_popup()
 
-def test_api_pycholog_rate():
-    pass
-
-
-def test_education_popup():
-    pass
-
-
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('Каталог')
+@allure.title('Выбрана парная терапия')
 def test_couple_therapy():
-    pass
+    catalog.open().chose_couple().check_couple()
