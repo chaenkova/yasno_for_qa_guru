@@ -1,0 +1,157 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "search_presets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "url_slug": {
+                "type": "string"
+              },
+              "meta_title": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "meta_description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "canonical_url": {
+                "type": "string"
+              },
+              "page_title": {
+                "type": "string"
+              },
+              "short_title": {
+                "type": "string"
+              },
+              "header_text": {
+                "type": "string"
+              },
+              "footer_text": {
+                "type": [
+                  "null",
+                  "string"
+                ]
+              },
+              "faq": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "question": {
+                      "type": "string"
+                    },
+                    "answer": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "preset_path": {
+                "type": "string"
+              },
+              "search_params": {
+                "type": "object",
+                "properties": {
+                  "age_ranges": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "couple_grade_ids": {
+                    "type": "array",
+                    "items": {
+                      "items": {}
+                    }
+                  },
+                  "genders": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "question_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "single_grade_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer"
+                    }
+                  },
+                  "sorts": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "therapy_methods": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "therapy_type": {
+                    "type": "string"
+                  },
+                  "with_available_slots": {
+                    "type": "boolean"
+                  },
+                  "with_video_profile": {
+                    "type": "boolean"
+                  },
+                  "works_with_teenagers": {
+                    "type": "boolean"
+                  },
+                  "years_of_experience_ranges": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "default": {
+                "type": "boolean"
+              },
+              "related_search_presets": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "url_slug": {
+                      "type": "string"
+                    },
+                    "page_title": {
+                      "type": "string"
+                    },
+                    "short_title": {
+                      "type": "string"
+                    },
+                    "preset_path": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

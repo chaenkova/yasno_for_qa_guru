@@ -1,4 +1,3 @@
-from pages.catalog_page import catalog
 from helpers.request import send_request
 import allure
 from allure_commons.types import Severity
@@ -18,6 +17,6 @@ def test_api_psychologist_count():
 @allure.suite('api для каталога')
 @allure.title('Получение списка пресетов')
 def test_api_get_presets():
-    pass
+    send_request("catalog/search_presets", 'get')
 
 
