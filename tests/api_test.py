@@ -20,3 +20,37 @@ def test_api_get_presets():
     send_request("catalog/search_presets", 'get')
 
 
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('api для каталога')
+@allure.title('Получение пресета по id')
+def test_api_get_by_presets():
+    data = {
+        "search_preset_id": 16
+    }
+    response = send_request("catalog/by_search_preset", 'post', data).json()
+    assert response["data"]["search_preset"]["short_title"] == "Стресс"
+
+
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('api для каталога')
+@allure.title('Получение конкретного пресета')
+def test_api_get_preset():
+    data = {
+        "url_slug": "stress"
+    }
+    response = send_request("catalog/search_preset", 'post', data).json()
+
+    assert response["data"]["search_preset"]["short_title"] == "Стресс"
+
+
+@allure.tag('web')
+@allure.severity(Severity.NORMAL)
+@allure.suite('api для каталога')
+@allure.title('Получение страницы каталога')
+def test_api_get_catalog():
+    data_request = {"question_ids": [1, 2]}
+    response = send_request("catalog", 'post', data_request).json()
+
+    assert response['data']['search_preset']['short_title'] == 'Все психологи'

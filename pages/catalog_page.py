@@ -1,9 +1,5 @@
-from selene import browser, be, have, by
+from selene import browser, be, have, by, query
 import allure
-import json
-from helpers.attaches import request_with_logs
-from jsonschema import validate
-from pathlib import Path
 
 
 class CatalogPage:
@@ -114,7 +110,7 @@ class CatalogPage:
     @allure.step('Проверяем результат в выбранных фильтрах')
     def check_filters(self):
         browser.element(by.text('Стресс')).should(be.existing)
-        browser.element(by.text('2 850 ₽')).should(be.existing)
+        browser.element(by.text('2850 ₽')).should(be.existing)
         browser.element(by.text('25-35 лет')).should(be.existing)
         browser.element(by.text('КПТ')).should(be.existing)
         browser.element(by.text('Более 5 лет')).should(be.existing)
@@ -127,8 +123,8 @@ class CatalogPage:
     def chose_sort_max_price(self):
         browser.element(by.text('Отменить')).click()
         browser.element(
-            '[data-id="therapist-catalog-short-filters"] ._s-select ._inline-flex > div').click()
-        browser.element('[data-v-70ec965c]').click()
+            '[data-id="therapist-catalog-short-filters"] ._s-select._ml-auto ._inline-flex > div').click()
+        browser.element(by.text('Сначала дороже')).click()
         browser.element('.ysn-grid-without-outer-padding span._t-body-accent').should(have.exact_text("4950 ₽"))
 
         return self
@@ -140,13 +136,14 @@ class CatalogPage:
     @allure.step('Клик на иконку информации рядом с ценой')
     def click_price_icon(self):
         browser.element(by.text('Отменить')).click()
-        browser.element('[data-v-005aaad4]').click()
+        browser.all('.ysn-grid-without-outer-padding [data-v-005aaad4]')[3].click()
         return self
 
     @allure.step('Проверяем, что цена в попапе совпадает с ценой сессии терапевта')
     def check_price_in_popup(self):
-        assert browser.element('.ysn-grid-without-outer-padding > div span._t-body-accent').value == browser.element(
-            'div[id^="headlessui-dialog-panel-"] _s-popup_content span').value
+        assert browser.element('.ysn-grid-without-outer-padding > div span._t-body-accent').get(
+            query.text_content) == browser.element(
+            'div[id^="headlessui-dialog-panel-"] ._s-popup_content span').get(query.text_content)
 
     @allure.step('Выбрать парную терапию')
     def chose_couple(self):
