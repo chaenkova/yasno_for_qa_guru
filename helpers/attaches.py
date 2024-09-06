@@ -40,3 +40,15 @@ def request_with_logs(url, method='get', data=''):
     logging.info(response.status_code)
     logging.info(response.text)
     return response
+
+
+def path_from_project(relative_path: str):
+    import helpers
+    from pathlib import Path
+
+    return (
+        Path(helpers.__file__)
+        .parent.parent.joinpath(relative_path)
+        .absolute()
+        .__str__()
+    )

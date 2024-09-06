@@ -13,6 +13,7 @@ allure-pytest = "^2.13.5"
 python-dotenv = "^1.0.1"
 jsonschema = "^4.23.0"
 pydentic = "^0.0.1.dev3"
+appium-python-client = "^4.1.0"
 
 
 [build-system]

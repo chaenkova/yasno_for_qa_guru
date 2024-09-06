@@ -66,6 +66,7 @@ def test_max_price_sort():
 def test_preset():
     catalog.open().fill_filters_for_preset().check_preset_title()
 
+
 @allure.tag('web')
 @allure.severity(Severity.MINOR)
 @allure.suite('Каталог')
@@ -73,12 +74,14 @@ def test_preset():
 def test_see_more():
     catalog.open().count_therapists().see_more().check_count()
 
+
 @allure.tag('web')
 @allure.severity(Severity.NORMAL)
 @allure.suite('Каталог')
 @allure.title('Цена в попапе грейда совпадает со стоимостью сессии')
 def test_price_popup():
     catalog.open().click_price_icon().check_price_in_popup()
+
 
 @allure.tag('web')
 @allure.severity(Severity.NORMAL)
