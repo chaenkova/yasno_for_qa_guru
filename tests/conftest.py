@@ -28,6 +28,11 @@ def pytest_addoption(parser):
     parser.addoption(
         "--androidonly",
         required=False,
+        default='false'
+    )
+    parser.addoption(
+        "--webonly",
+        required=False,
         default='true'
     )
     parser.addoption(
@@ -48,12 +53,17 @@ def pytest_collection_modifyitems(config, items: list[pytest.Item]):
     for item in items:
         if ("ios" not in item.name) and (config.getoption("--iosonly").lower() == "true"):
             item.add_marker(pytest.mark.skip("Мы запустили только ios тесты"))
+        elif (("android" in item.name) or ("ios" in item.name)) and (config.getoption("--webonly").lower() == "true"):
+            item.add_marker(pytest.mark.skip("Мы запустили только web тесты"))
         elif ("android" not in item.name) and (config.getoption("--androidonly").lower() == "true"):
             item.add_marker(pytest.mark.skip("Мы запустили только android тесты"))
+
 
 def mobile_management(request):
     device_name = request.config.getoption('--device_name')
     context = request.config.getoption('--context')
+
+    print(context)
 
     capabilities = config.to_driver_options(context=context, device_name=device_name)
 
@@ -67,15 +77,14 @@ def mobile_management(request):
     else:
         options = capabilities
 
-    with allure.step('init app session'):
-        browser.config.driver = webdriver.Remote(options.get_capability('remote_url'), options=options)
 
     browser.config.timeout = float(os.getenv('timeout', '10.0'))
 
     browser.config._wait_decorator = support._logging.wait_with(
         context=allure_commons._allure.StepContext
     )
-
+    with allure.step('init app session'):
+        return webdriver.Remote(options.get_capability('remote_url'), options=options)
 
 @pytest.fixture(scope="function", autouse=True)
 def browser_settings(request):
@@ -84,7 +93,8 @@ def browser_settings(request):
     selenoid_url = os.getenv("SELENOID_URL")
     context = request.config.getoption('--context')
 
-    if context == 'web':
+    if request.config.getoption('--webonly'):
+        request.config.getoption('--context')
         browser.config.window_height = 1080
         browser.config.window_width = 1920
         browser.config.base_url = 'https://yasno.live'
@@ -111,8 +121,7 @@ def browser_settings(request):
 
         browser.config.driver = driver
     else:
-        mobile_management(request)
-
+        browser.config.driver = mobile_management(request)
 
     yield
     if context == 'web':
@@ -121,3 +130,12 @@ def browser_settings(request):
         attaches.add_logs(browser)
         attaches.add_video(browser)
         browser.quit()
+    elif context == 'bstack':
+        attaches.add_screenshot(browser)
+        #attaches.attach_xml(browser)
+        session_id = browser.config.driver.session_id
+
+        with allure.step('tear down app session'):
+            browser.quit()
+
+        attaches.attach_bstack_video(session_id)

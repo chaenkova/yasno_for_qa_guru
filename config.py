@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from appium.options.android import UiAutomator2Options
-from selene_in_action.utils.file import path_from_project
+from helpers.attaches import path_from_project
 
 
 def to_driver_options(context, device_name):
@@ -18,7 +18,7 @@ def to_driver_options(context, device_name):
         options = {
             'deviceName': device_name,
             'remote_url': 'http://hub.browserstack.com/wd/hub',
-            'app' :os.getenv('app'),
+            'app': os.getenv('app'),
 
             'bstack:options': {
                 'projectName': 'First Python project',
@@ -29,3 +29,4 @@ def to_driver_options(context, device_name):
                 'accessKey': os.getenv('bstack_accessKey'),
             }
         }
+    return options
