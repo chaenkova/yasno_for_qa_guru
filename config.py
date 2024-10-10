@@ -12,7 +12,7 @@ def to_driver_options(context, device_name):
     if context == 'real_device' or context == 'emulator':
         options.set_capability('remote_url', os.getenv('REMOTE_URL'))
         options.set_capability('deviceName', os.getenv('DEVICE_NAME'))
-        options.set_capability('appWaitActivity', os.getenv('APP_WAIT_ACTIVITY'))
+        #options.set_capability('appWaitActivity', os.getenv('APP_WAIT_ACTIVITY'))
         options.set_capability('app', path_from_project(os.getenv('APP')))
     else:
         options = {

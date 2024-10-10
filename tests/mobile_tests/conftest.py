@@ -6,7 +6,6 @@ import allure
 import allure_commons
 from dotenv import load_dotenv
 import os
-from selenium.webdriver.chrome.options import Options
 from appium.options.android import UiAutomator2Options
 from appium.options.ios import XCUITestOptions
 
@@ -35,10 +34,11 @@ def pytest_addoption(parser):
         required=False,
         default='true'
     )
+
     parser.addoption(
         "--context",
         required=False,
-        default='web'
+        default='bstack'
     )
 
 
@@ -53,13 +53,13 @@ def pytest_collection_modifyitems(config, items: list[pytest.Item]):
     for item in items:
         if ("ios" not in item.name) and (config.getoption("--iosonly").lower() == "true"):
             item.add_marker(pytest.mark.skip("Мы запустили только ios тесты"))
-        elif (("android" in item.name) or ("ios" in item.name)) and (config.getoption("--webonly").lower() == "true"):
-            item.add_marker(pytest.mark.skip("Мы запустили только web тесты"))
-        elif ("android" not in item.name) and (config.getoption("--androidonly").lower() == "true"):
+        elif "android" not in item.name:
             item.add_marker(pytest.mark.skip("Мы запустили только android тесты"))
 
 
-def mobile_management(request):
+@pytest.fixture(scope="function", autouse=True)
+def browser_settings(request):
+
     device_name = request.config.getoption('--device_name')
     context = request.config.getoption('--context')
 
@@ -77,65 +77,21 @@ def mobile_management(request):
     else:
         options = capabilities
 
-
     browser.config.timeout = float(os.getenv('timeout', '10.0'))
 
     browser.config._wait_decorator = support._logging.wait_with(
         context=allure_commons._allure.StepContext
     )
     with allure.step('init app session'):
-        return webdriver.Remote(options.get_capability('remote_url'), options=options)
-
-@pytest.fixture(scope="function", autouse=True)
-def browser_settings(request):
-    selenoid_login = os.getenv("SELENOID_LOGIN")
-    selenoid_pass = os.getenv("SELENOID_PASS")
-    selenoid_url = os.getenv("SELENOID_URL")
-    context = request.config.getoption('--context')
-
-    if request.config.getoption('--webonly'):
-        request.config.getoption('--context')
-        browser.config.window_height = 1080
-        browser.config.window_width = 1920
-        browser.config.base_url = 'https://yasno.live'
-
-        options = Options()
-        selenoid_capabilities = {
-            "browserName": "chrome",
-            "browserVersion": "100.0",
-            "selenoid:options": {
-                "enableVNC": True,
-                "enableVideo": True
-            }
-        }
-
-        options.add_argument("--disable-gpu")
-        options.add_argument("--no-sandbox")
-        options.add_argument("--disable-dev-shm-usage")
-        options.add_argument("--incognito")
-
-        options.capabilities.update(selenoid_capabilities)
-        driver = webdriver.Remote(
-            command_executor=f"https://{selenoid_login}:{selenoid_pass}@{selenoid_url}/wd/hub",
-            options=options)
-
-        browser.config.driver = driver
-    else:
-        browser.config.driver = mobile_management(request)
+        browser.config.driver = webdriver.Remote(options.get_capability('remote_url'), options=options)
 
     yield
-    if context == 'web':
-        attaches.add_html(browser)
-        attaches.add_screenshot(browser)
-        attaches.add_logs(browser)
-        attaches.add_video(browser)
+
+    attaches.add_screenshot(browser)
+    # attaches.attach_xml(browser)
+    session_id = browser.config.driver.session_id
+
+    with allure.step('tear down app session'):
         browser.quit()
-    elif context == 'bstack':
-        attaches.add_screenshot(browser)
-        #attaches.attach_xml(browser)
-        session_id = browser.config.driver.session_id
 
-        with allure.step('tear down app session'):
-            browser.quit()
-
-        attaches.attach_bstack_video(session_id)
+    attaches.attach_bstack_video(session_id)
