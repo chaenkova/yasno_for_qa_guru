@@ -30,12 +30,6 @@ def pytest_addoption(parser):
         default='false'
     )
     parser.addoption(
-        "--webonly",
-        required=False,
-        default='true'
-    )
-
-    parser.addoption(
         "--context",
         required=False,
         default='bstack'
@@ -87,11 +81,12 @@ def browser_settings(request):
 
     yield
 
-    attaches.add_screenshot(browser)
-    # attaches.attach_xml(browser)
-    session_id = browser.config.driver.session_id
+    if context == 'bstack':
+        attaches.add_screenshot(browser)
+        # attaches.attach_xml(browser)
+        session_id = browser.config.driver.session_id
 
-    with allure.step('tear down app session'):
-        browser.quit()
+        with allure.step('tear down app session'):
+            browser.quit()
 
-    attaches.attach_bstack_video(session_id)
+        attaches.attach_bstack_video(session_id)
