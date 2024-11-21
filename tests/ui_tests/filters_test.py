@@ -1,3 +1,5 @@
+import pytest
+
 from pages.catalog_page import catalog
 import allure
 from allure_commons.types import Severity
@@ -12,41 +14,16 @@ class TestCatalogUI:
         (catalog.open()
          .should_have_no_filters())
 
+    @pytest.mark.parametrize("filters, value",
+                             [('Симптомы', 'Стресс'), ('Подход', 'КПТ'), ('Цена', '2850 ₽'), ('Пол', 'Мужской')])
     @allure.severity(Severity.CRITICAL)
     @allure.title('Проверка работы быстрого фильтра симптомов')
-    def test_symptoms_filter(self):
+    def test_fast_filter(self, filters, value):
         (catalog.open()
          .click_close_filters_button()
-         .choose_item_in_filter('Симптомы', 'Стресс')
+         .choose_item_in_filter(filters, value)
          .click_apply_filters_button()
-         .text_should_be_in_filters('Стресс'))
-
-    @allure.severity(Severity.CRITICAL)
-    @allure.title('Проверка работы быстрого фильтра подхода')
-    def test_treatment_filter(self):
-        (catalog.open()
-         .click_close_filters_button()
-         .choose_item_in_filter('Подход', 'КПТ')
-         .click_apply_filters_button()
-         .text_should_be_in_filters('КПТ'))
-
-    @allure.severity(Severity.CRITICAL)
-    @allure.title('Проверка работы быстрого фильтра по цене')
-    def test_price_filter(self):
-        (catalog.open()
-         .click_close_filters_button()
-         .choose_item_in_filter('Цена', '2850 ₽')
-         .click_apply_filters_button()
-         .text_should_be_in_filters('2850 ₽'))
-
-    @allure.severity(Severity.CRITICAL)
-    @allure.title('Проверка работы быстрого фильтра по полу')
-    def test_gender_filter(self):
-        (catalog.open()
-         .click_close_filters_button()
-         .choose_item_in_filter('Пол', 'Мужской')
-         .click_apply_filters_button()
-         .text_should_be_in_filters('Мужской'))
+         .text_should_be_in_filters(value))
 
     @allure.severity(Severity.CRITICAL)
     @allure.title('Проверка работы общего фильтра по нескольким параметрам')
