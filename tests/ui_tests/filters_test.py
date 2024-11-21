@@ -17,7 +17,7 @@ class TestCatalogUI:
     @pytest.mark.parametrize("filters, value",
                              [('Симптомы', 'Стресс'), ('Подход', 'КПТ'), ('Цена', '2850 ₽'), ('Пол', 'Мужской')])
     @allure.severity(Severity.CRITICAL)
-    @allure.title('Проверка работы быстрого фильтра симптомов')
+    @allure.title('Проверка работы быстрого фильтра')
     def test_fast_filter(self, filters, value):
         (catalog.open()
          .click_close_filters_button()
