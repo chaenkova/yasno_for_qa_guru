@@ -91,6 +91,7 @@ class CatalogPage:
 
     @allure.step('проверить, что психологов стало больше')
     def check_count(self):
+
         assert self.count < len(browser.all('.ysn-grid-without-outer-padding > div'))
 
     @allure.step('Сортировка по убыванию цены')
@@ -110,7 +111,7 @@ class CatalogPage:
     @allure.step('Клик на иконку информации рядом с ценой')
     def click_price_icon(self):
         browser.element(by.text('Отменить')).click()
-        browser.all('.ysn-grid-without-outer-padding [data-v-005aaad4]')[3].click()
+        browser.all('.ysn-grid-without-outer-padding [data-v-005aaad4]')[4].click()
         return self
 
     @allure.step('Проверяем, что цена в попапе совпадает с ценой сессии терапевта')
