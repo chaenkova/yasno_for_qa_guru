@@ -7,6 +7,7 @@ import os
 from selenium.webdriver.chrome.options import Options
 
 
+
 @pytest.fixture(scope="session", autouse=True)
 def load_env():
     load_dotenv()
@@ -19,7 +20,7 @@ def browser_settings():
     selenoid_url = os.getenv("SELENOID_URL")
     browser.config.window_height = 1080
     browser.config.window_width = 1920
-    browser.config.base_url = 'https://yasno.live'
+    browser.config.base_url = os.getenv("BASE_URL")
 
     options = Options()
     selenoid_capabilities = {

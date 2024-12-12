@@ -56,14 +56,7 @@
                 },
                 "question_ids": {
                   "type": "array",
-                  "items": [
-                    {
-                      "type": "integer"
-                    },
-                    {
-                      "type": "integer"
-                    }
-                  ]
+                  "items": {}
                 },
                 "single_grade_ids": {
                   "type": "array",
@@ -93,21 +86,7 @@
                   "type": "array",
                   "items": {}
                 }
-              },
-              "required": [
-                "age_ranges",
-                "couple_grade_ids",
-                "genders",
-                "question_ids",
-                "single_grade_ids",
-                "sorts",
-                "therapy_methods",
-                "therapy_type",
-                "with_available_slots",
-                "with_video_profile",
-                "works_with_teenagers",
-                "years_of_experience_ranges"
-              ]
+              }
             },
             "default": {
               "type": "boolean"
@@ -116,30 +95,27 @@
               "type": "array",
               "items": {}
             }
-          },
-          "required": [
-            "url_slug",
-            "meta_title",
-            "meta_description",
-            "canonical_url",
-            "page_title",
-            "short_title",
-            "header_text",
-            "footer_text",
-            "faq",
-            "preset_path",
-            "search_params",
-            "default",
-            "related_search_presets"
-          ]
+          }
+        },
+        "therapists": {
+          "type": "array",
+          "items": {}
         }
-      },
-      "required": [
-        "search_preset"
-      ]
+      }
+    },
+    "pagination": {
+      "type": "object",
+      "properties": {
+        "current_page": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer"
+        }
+      }
     }
-  },
-  "required": [
-    "data"
-  ]
+  }
 }

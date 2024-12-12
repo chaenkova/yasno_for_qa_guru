@@ -27,7 +27,7 @@ class TestCatalogUI:
 
     @allure.severity(Severity.CRITICAL)
     @allure.title('Проверка работы общего фильтра по нескольким параметрам')
-    def test_all_filter(self):
+    def test_all_filters(self):
         (catalog.open()
          .fill_filters(catalog.filters_for_catalog_popup)
          .click_apply_filters_button('._s-popup_layer')

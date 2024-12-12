@@ -7,7 +7,6 @@ import allure_commons
 from dotenv import load_dotenv
 import os
 from appium.options.android import UiAutomator2Options
-from appium.options.ios import XCUITestOptions
 
 import config
 
@@ -18,16 +17,6 @@ def pytest_addoption(parser):
     parser.addoption(
         '--device_name',
         default='Google Pixel 3'
-    )
-    parser.addoption(
-        "--iosonly",
-        required=False,
-        default='false'
-    )
-    parser.addoption(
-        "--androidonly",
-        required=False,
-        default='false'
     )
     parser.addoption(
         "--context",
@@ -41,19 +30,8 @@ def load_env():
     load_dotenv()
 
 
-def pytest_collection_modifyitems(config, items: list[pytest.Item]):
-    items.sort(key=lambda x: x.name, reverse=True)
-
-    for item in items:
-        if ("ios" not in item.name) and (config.getoption("--iosonly").lower() == "true"):
-            item.add_marker(pytest.mark.skip("Мы запустили только ios тесты"))
-        elif "android" not in item.name:
-            item.add_marker(pytest.mark.skip("Мы запустили только android тесты"))
-
-
 @pytest.fixture(scope="function", autouse=True)
 def browser_settings(request):
-
     device_name = request.config.getoption('--device_name')
     context = request.config.getoption('--context')
 
@@ -62,12 +40,7 @@ def browser_settings(request):
     capabilities = config.to_driver_options(context=context, device_name=device_name)
 
     if context == 'bstack':
-        if request.config.getoption('--androidonly').lower() == "true":
-            options = UiAutomator2Options().load_capabilities(capabilities).set_capability('app', os.getenv('app'))
-        elif request.config.getoption('--iosonly').lower() == "true":
-            options = XCUITestOptions().load_capabilities(capabilities).set_capability('app', 'bs://sample.app')
-        else:
-            print('unknown device')
+        options = UiAutomator2Options().load_capabilities(capabilities).set_capability('app', os.getenv('app'))
     else:
         options = capabilities
 
