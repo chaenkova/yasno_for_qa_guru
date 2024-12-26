@@ -5,12 +5,10 @@ import allure
 class CatalogPage:
     filters_for_catalog_popup = {
         "": "Стресс",
-        'Цена': '3950 ₽',
         'Возраст': '45-55 лет',
         'Психотерапевтический подход': 'Гештальт-терапия',
         'Опыт': 'Более 5 лет',
         'Пол': 'Мужской',
-        'Время сессии': 'Ближайшее',
         'Дополнительные настройки': 'Без доступного времени'
     }
 
@@ -27,6 +25,10 @@ class CatalogPage:
         self.cancel = 'button._btn-base-secondary'
         self.see_more_button = 'button._btn-base-secondary'
         self.short_filter_select = 'div[data-v-d3bbf6ba]._tw-ui-dropdown__content'
+        self.price_with_space = '3 950 ₽'
+        self.price = '3950 ₽'
+        self.time_with_space = 'Ближайшее время'
+        self.time = 'Ближайшее'
 
     @allure.step('Выбираем значение в фильтре')
     def choose_item_in_filter(self, filters, item, locator='body'):
@@ -54,11 +56,11 @@ class CatalogPage:
 
     @staticmethod
     @allure.step('Проверяем результат в выбранных фильтрах')
-    def check_filters(filters: dict) -> bool:
+    def check_filters(filters: dict, price, time) -> bool:
         for value in filters.values():
             if not browser.element(by.text(value)).should(be.visible):
                 return False
-        return True
+        return browser.element(by.text(price)).should(be.visible) and browser.element(by.text(time)).should(be.visible)
 
     @allure.step('Проверяем результат в выбранном фильтре')
     def text_should_be_in_filters(self, text):
@@ -71,7 +73,9 @@ class CatalogPage:
         browser.element(self.short_filters).should(be.absent)
 
     @allure.step('Заполняем все фильтры в попапе')
-    def fill_filters(self, filters: dict):
+    def fill_filters(self, filters: dict, price, time):
+        self.choose_item_in_filter('Цена',  price, locator=self.popup)
+        self.choose_item_in_filter('Время сессии', time, locator=self.popup)
         for key, value in filters.items():
             self.choose_item_in_filter(key, value, locator=self.popup)
         return self

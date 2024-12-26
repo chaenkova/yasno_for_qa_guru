@@ -10,7 +10,10 @@ def browser_settings():
     selenoid_login = os.getenv("SELENOID_LOGIN")
     selenoid_pass = os.getenv("SELENOID_PASS")
     selenoid_url = os.getenv("SELENOID_URL")
+    browser.config.window_height = 1080
+    browser.config.window_width = 1920
     browser.config.base_url = os.getenv("BASE_URL")
+    browser.config.timeout = 3
 
     options = Options()
     selenoid_capabilities = {
@@ -26,7 +29,6 @@ def browser_settings():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--incognito")
-    options.add_argument("--headless")
 
     options.capabilities.update(selenoid_capabilities)
     driver = webdriver.Remote(
@@ -36,5 +38,8 @@ def browser_settings():
     browser.config.driver = driver
 
     yield
+    attaches.add_html(browser)
+    attaches.add_screenshot(browser)
     attaches.add_logs(browser)
+    attaches.add_video(browser)
     browser.quit()

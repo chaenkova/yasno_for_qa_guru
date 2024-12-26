@@ -29,9 +29,9 @@ class TestCatalogUI:
     @allure.title('Проверка работы общего фильтра по нескольким параметрам')
     def test_all_filters(self):
         catalog.open() \
-            .fill_filters(catalog.filters_for_catalog_popup) \
+            .fill_filters(catalog.filters_for_catalog_popup, catalog.price_with_space, catalog.time) \
             .click_apply_filters_button(catalog.popup) \
-            .check_filters(catalog.filters_for_catalog_popup)
+            .check_filters(catalog.filters_for_catalog_popup, catalog.price, catalog.time_with_space)
 
     @allure.severity(Severity.NORMAL)
     @allure.title('Сортировка "Сначала дороже"')
