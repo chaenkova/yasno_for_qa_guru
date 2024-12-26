@@ -61,7 +61,7 @@ class RzhdPage:
                                     f"{os.getenv('APP_NAME')}/all_stations_bage")).should(have.text('все вокзалы'))
 
     @staticmethod
-    def check_duplicates():
+    def check_same_cities_exist():
         with step('Есть похожие станции'):
             assert browser.element((AppiumBy.ANDROID_UIAUTOMATOR,
                                     'new UiSelector().text(\"Похожие станции\")')).should(be.existing)

@@ -20,3 +20,8 @@ def send_request(endpoint, method, data=''):
         validate(response.json(), schema=json.loads(file.read()))
 
     return response
+
+
+def check_response_code(response, code):
+    allure.step(f'Проверям статус ответа от сервера')
+    assert response.status_code == code
